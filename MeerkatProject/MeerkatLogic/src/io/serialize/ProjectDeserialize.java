@@ -8,6 +8,7 @@ package io.serialize;
 import static io.graph.reader.GraphReader.BUFFER_SIZE;
 import io.utility.Utilities;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -61,8 +62,10 @@ public class ProjectDeserialize {
 //            System.out.println("ProjectDeserialize.Read(): ProjectID: "+pintProjectID+" File: "+pstrProjectFilePath);
 //            InputStreamReader isReader = new InputStreamReader(new FileInputStream(pstrProjectFilePath));
 //            BufferedReader bfReader = new BufferedReader(isReader, BUFFER_SIZE);
-
-            InputStream is = ProjectDeserialize.class.getClassLoader().getResourceAsStream(pstrProjectFilePath);
+            System.out.println(new File(pstrProjectFilePath).getAbsolutePath());
+            System.out.println("+++++++++++++++++++");
+//            InputStream is = ProjectDeserialize.class.getClassLoader().getResourceAsStream(pstrProjectFilePath);
+            InputStream is = new FileInputStream(pstrProjectFilePath);
             BufferedReader bfReader = new BufferedReader(new InputStreamReader(is), BUFFER_SIZE);
             String strCurrentLine = null;
             

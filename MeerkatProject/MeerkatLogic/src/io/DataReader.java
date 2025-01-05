@@ -71,9 +71,11 @@ public abstract class DataReader {
             Method methodRead;
             strClassName = "io.graph.reader." + strClassName ;
             clsReader = Class.forName(strClassName);                                
-            constructor = clsReader.getConstructor(String.class);            
+            constructor = clsReader.getConstructor(String.class);
+            System.out.println("pstrPath2FileName after Constructor: " + pstrPath2FileName);
             drdObj = (GraphReader) constructor.newInstance(pstrPath2FileName);            
             methodRead = clsReader.getMethod("loadFile");            
+            System.out.println("pstrPath2FileName after Reader: " + pstrPath2FileName + "\t" + strClassName);
             igraph = (IDynamicGraph) methodRead.invoke(drdObj);
         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InstantiationException e) {
             System.out.println("DataReader.load() : Exception: "+e.toString());

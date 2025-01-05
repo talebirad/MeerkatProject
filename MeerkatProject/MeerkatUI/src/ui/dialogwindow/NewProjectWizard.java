@@ -152,6 +152,8 @@ public class NewProjectWizard {
 
 
                 // System.out.println("NewProjectWizard.Display(): Project Name entered: "+strProjectName+" with length "+strProjectName.length());
+                System.out.println("");
+                System.out.println(System.getProperty("user.dir")+File.separator+strProjectRootDirectory);
                 if (Utilities.ProjectExists(strProjectFileName, System.getProperty("user.dir")+File.separator+strProjectRootDirectory)) {
                     lblError_FileFound.setVisible(true);
                 } else {

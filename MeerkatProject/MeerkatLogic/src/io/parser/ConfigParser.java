@@ -27,6 +27,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+
+
+
+
+
+
+
+import java.net.URL;
+import org.apache.commons.lang3.ClassUtils;
+
+
 /**
  *  Class Name      : ConfigParser
  *  Created Date    : 2015-08-26
@@ -74,8 +85,6 @@ public class ConfigParser {
         );
         
         try {           
-            
-//            File fXmlFile = new File(pstrFilePath);
             InputStream fXmlFile = ConfigParser.class.getClassLoader().getResourceAsStream(pstrFilePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

@@ -59,6 +59,7 @@ public class MeerkatWriter<V extends IVertex, E extends IEdge<V>>
 
         int intErrorCode = 0;
         String strFilePath = pstrPath2FileName + strExtension ;
+        System.out.println(new File(strFilePath).getAbsolutePath());
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(strFilePath));
 
@@ -131,6 +132,14 @@ public class MeerkatWriter<V extends IVertex, E extends IEdge<V>>
                 String id = vertex.getUserAttributer()
                         .getAttributeValue(MeerkatSystem.FILE_ID, timeframe);
                 
+                if(id == null){
+                    int cnt = 1;
+                     for (IVertex newvertex : pIGraph.getVertices(timeframe)) {
+                        newvertex.updateAttributeValue(MeerkatSystem.FILE_ID, String.valueOf(cnt ++), timeframe);
+                     }
+                    id = vertex.getUserAttributer()
+                        .getAttributeValue(MeerkatSystem.FILE_ID, timeframe);
+                }
                 
                 int intAttSize = vertex.getUserAttributer().getAttributeNames().size() +
                         vertex.getSystemAttributer().getAttributeNames().size();

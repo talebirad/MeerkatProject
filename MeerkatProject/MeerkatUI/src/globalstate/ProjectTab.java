@@ -499,7 +499,7 @@ public class ProjectTab {
                     2) Create GraphTabs for each GraphID and add the GraphTab to this ProjectTab
                     3) Reflect the changes in the UI
                 */
-                
+                System.out.println("addFileToProject addFileToProject: " + pstrInputFilePath);
                 intGraphID = LoadingAPI.LoadGraphFile(this.intProjectID, pstrReaderID, pstrInputFilePath);
                 
                 if(intGraphID>=0)

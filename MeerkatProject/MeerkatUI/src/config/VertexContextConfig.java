@@ -26,6 +26,7 @@ public class VertexContextConfig {
     /* *************************************************************** */
     private static String VERTEX_INFO ;
     private static String VERTEX_NEIGHBOR ;
+    private static String VERTEX_COMMUNITY ;
     private static String VERTEX_STYLE ;
     private static String VERTEX_SHAPE ;
     private static String VERTEX_SIZE ;
@@ -55,6 +56,13 @@ public class VertexContextConfig {
         return VERTEX_NEIGHBOR;
     }
 
+    /**
+     * @return VERTEX_COMMUNITY
+     */
+    public static String getVertexCommunityText() {
+        return VERTEX_COMMUNITY;
+    }
+    
     /**
      * @return VERTEX_SHAPE
      */
@@ -160,6 +168,7 @@ public class VertexContextConfig {
             , String pstrVertexPinText
             , String pstrVertexUnpinText
             , String pstrVertexExtract
+            , String pstrVertexCommunity
     ) {
         VERTEX_INFO = pstrVertexInfoText;
         VERTEX_NEIGHBOR = pstrVertexNeighborText;
@@ -172,6 +181,7 @@ public class VertexContextConfig {
         VERTEX_PIN = pstrVertexPinText ;
         VERTEX_UNPIN = pstrVertexUnpinText ;
         VERTEX_EXTRACT = pstrVertexExtract ;
+        VERTEX_COMMUNITY = pstrVertexCommunity ;
     }
     
 }

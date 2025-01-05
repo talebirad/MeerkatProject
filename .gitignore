@@ -1,0 +1,46 @@
+# Ignore files and folders related to NetBeans for all subprojects
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+**/build/
+**/nbbuild/
+**/dist/
+**/nbdist/
+
+**/.nb-gradle/
+
+# Specific to MeerkatProject and its subprojects
+MeerkatProject/MeerkatAPI/nbproject/private/
+MeerkatProject/MeerkatAPI/build/
+MeerkatProject/MeerkatAPI/nbbuild/
+MeerkatProject/MeerkatAPI/dist/
+MeerkatProject/MeerkatAPI/nbdist/
+MeerkatProject/MeerkatAPI/.nb-gradle/
+
+MeerkatProject/MeerkatLogic/nbproject/private/
+MeerkatProject/MeerkatLogic/build/
+MeerkatProject/MeerkatLogic/nbbuild/
+MeerkatProject/MeerkatLogic/dist/
+MeerkatProject/MeerkatLogic/nbdist/
+MeerkatProject/MeerkatLogic/.nb-gradle/
+
+MeerkatProject/MeerkatUI/nbproject/private/
+MeerkatProject/MeerkatUI/build/
+MeerkatProject/MeerkatUI/nbbuild/
+MeerkatProject/MeerkatUI/dist/
+MeerkatProject/MeerkatUI/nbdist/
+MeerkatProject/MeerkatUI/.nb-gradle/
+
+# Ignore any other build artifacts or temporary files globally
+*.class
+*.log
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+
+# Ignore Eclipse/IntelliJ IDEA project files (if applicable)
+*.iml
+.idea/
+.classpath
+.project

@@ -782,6 +782,38 @@ public class GraphAPI {
         return setNeighbors ;
     }
     
+    public static Set<Integer> getVertexCommunity(int pintProjectId, int pintGraphId, 
+            int pintTimeFrameIndex, int theVertex) {
+        
+        Set<Integer> setNeighbors = null;
+        try {
+            setNeighbors = new HashSet<>();
+            MeerkatBIZ BIZInstance = MeerkatBIZ.getMeerkatApplication();
+            IDynamicGraph<IVertex,IEdge<IVertex>> dynaGraph =
+                BIZInstance.getProject(pintProjectId).getGraph(pintGraphId);
+        
+            TimeFrame tf = dynaGraph.getAllTimeFrames().get(pintTimeFrameIndex);
+            if (dynaGraph.getVertex(theVertex).getColor(tf) == null){
+                setNeighbors.add(theVertex);
+                return setNeighbors;
+            }
+            for (IVertex currentVertex: dynaGraph.getAllVertices()) {
+//                System.out.println("Color check debug");
+//                System.out.println(currentVertex.getColor(tf));
+//                System.out.println(dynaGraph.getVertex(theVertex).getColor(tf));
+                if (currentVertex.getColor(tf) == null)
+                    continue;
+                if (currentVertex.getColor(tf).equals(dynaGraph.getVertex(theVertex).getColor(tf)))
+                    setNeighbors.add(currentVertex.getId());
+            }
+            return setNeighbors ;
+        } catch (Exception ex) {
+            System.out.println("GraphAPI.getVertexcommunity(): EXCEPTION") ;
+            ex.printStackTrace();
+        }
+        return setNeighbors;
+    }
+    
     public static boolean stopAlgorithms(int pintProjectId, int pintGraphId) {
         boolean blnValue = true ;
         return blnValue ;

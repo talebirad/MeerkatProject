@@ -317,8 +317,9 @@ public class Project{
         
             //put fileName as "Name.meerkat".Right now all files being saved as .meerkat
             //put filePath = "projects/projectname/Name.meerkat"
-            String pstrPath2FileNameMeerkat = this.getProjectDirectory() + strGraphTitle + ".meerkat";
-            
+//            String pstrPath2FileNameMeerkat = this.getProjectDirectory() + strGraphTitle + ".meerkat";
+            String pstrPath2FileNameMeerkat = pstrPath2FileName;
+            System.out.println("pstrPath2FileNameMeerkat loadFromMPRJ:" + pstrPath2FileNameMeerkat);
             this.getGraph(graphId).setGraphFile(pstrPath2FileNameMeerkat);
             this.getGraph(graphId).setGraphTitle(strGraphTitle);
             

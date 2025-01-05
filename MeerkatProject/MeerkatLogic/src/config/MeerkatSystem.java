@@ -174,7 +174,7 @@ public class MeerkatSystem {
     /* Path to executable algorithms on board*/
     public static String PROJECT_RESOURCES_DIR = "resources/";
     public static String PROJECT_ICONS_DIR = "icons/";
-    public static String PATH_TO_CONFIG_FILE = OS_TYPE.equals(".exe")? "conf\\bizconf.xml" :"conf/bizconf.xml";
+    public static String PATH_TO_CONFIG_FILE = OS_TYPE.equals(".exe")? "conf/bizconf.xml" :"conf/bizconf.xml";
     private static String DEFAULT_MINING_DIRECTORY =  OS_TYPE.equals(".exe")? "resources\\mining\\" : "resources/mining/";
     private static String DEFAULT_GRAPH_DIRECTORY =  OS_TYPE.equals(".exe")? "resources\\graphGenerator\\" : "resources/graphGenerator/";
     private static String MINING_DIRECTORY_LOCAL_COMMUNITY

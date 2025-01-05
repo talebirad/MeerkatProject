@@ -115,6 +115,7 @@
             <MenuItem class="MenuItemNewProject" icon="file:resources/icons/new.png" mnemonicParsing="true" text="_New Project" check="false" shortcut="n,ctrl,shift" disabled="0" SeparatorCount="0" />
             <MenuItem class="MenuItemOpenProject" icon="file:resources/icons/open.png" mnemonicParsing="true" text="_Open Project" check="false" shortcut="ctrl,o,a" disabled="0" SeparatorCount="0" />
             <MenuItem class="MenuItemLoadGraphData" icon="file:resources/icons/loadgraph.png" mnemonicParsing="true" text="_Load Graph File" check="false" shortcut="l,ctrl,shift" disabled="1" SeparatorCount="0" />
+            <MenuItem class="MenuItemNewProjectGraph" icon="file:resources/icons/exportgraph.png" mnemonicParsing="true" text="New Blank Graph" check="false" disabled="1" SeparatorCount="0" />
             <MenuItem class="MenuItemSaveProject" icon="file:resources/icons/save.png" mnemonicParsing="true" text="_Save Project" check="false" shortcut="ctrl,s" disabled="1" SeparatorCount="0" />
             <MenuItem class="MenuItemSaveCommunities" icon="file:resources/icons/savecommunities.png" mnemonicParsing="true" text="_Save Communities" check="false" shortcut="shift,ctrl,c" disabled="1" SeparatorCount="0" />
             <MenuItem class="MenuItemExportMetrics" icon="file:resources/icons/exportmetrics.png" mnemonicParsing="true" text="_Export Metrics" check="false" shortcut="shift,ctrl,m" disabled="1" SeparatorCount="0" />
@@ -190,6 +191,8 @@
             <MenuItem class="MenuItemRosvallInfomap" icon="" mnemonicParsing="false" text="Rosvall Infomap" check="false" disabled="2" idmappingparameter="rosvallinfomap" SeparatorCount="0" />
             <MenuItem class="MenuItemRosvallInfomod" icon="" mnemonicParsing="false" text="Rosvall Infomod" check="false" disabled="2" idmappingparameter="rosvallinfomod" SeparatorCount="1" />            
             <MenuItem class="MenuItemDynamicCommunityMining" icon="" mnemonicParsing="false" text="Dynamic Community Mining" check="false" disabled="2" idmappingparameter="dcmining" SeparatorCount="2" />            
+            <MenuItem class="MenuItemSiwoPlus" icon="" mnemonicParsing="false" text="SIWO+" check="false" disabled="2" idmappingparameter="siwoplus" SeparatorCount="0" />
+            <MenuItem class="MenuItemSiwoPlus" icon="" mnemonicParsing="false" text="SIWO single community search" check="false" disabled="2" idmappingparameter="siwoplus" SeparatorCount="0" />            
             <MenuItem class="MenuItemClearMiningResults" icon="" mnemonicParsing="false" text="Clear Mining Results" check="false" disabled="2" idmappingparameter="" SeparatorCount="0" />
         </MenuBarOption>
         
@@ -376,6 +379,7 @@
     </EmotionContent>
 
     <NodeContextMenu>
+        <SelectCommunity>Select Same-color Nodes</SelectCommunity>
         <NodeInfo>Vertex Information</NodeInfo>
         <NodeNeighbor>Vertex Neighborhood</NodeNeighbor>
         <Style>Styling</Style>
@@ -410,6 +414,7 @@
         <RemoveNode>Remove Vertices</RemoveNode>
         <RemoveEdge>Remove Edges</RemoveEdge>
         <VertexInfo>Vertex Information</VertexInfo>
+        <SelectCoComuniyt>Select This Community</SelectCoComuniyt>
     </CanvasContextMenu>
 
 
@@ -629,12 +634,12 @@
 
         For more details please visit us online at: https://www.amii.ca/meerkat or email us at meerkat@cs.ualberta.ca  
 
-        Version Release Date: 2017 September 31  
+        Version Release Date: 2025-01-04  
 
-        Current Developers : Sankalp Prabhakar, Talat Iqbal Syed
+        Current Developer : Yashar Talebirad
 
-        Past and Present Team Members (alphabetically): Abhimanyu Panwar, Ali Yadollahi, Afra Abnar, Amin Travelsi, Eric Verbeek, Farzad Sangi, Justin Fagnan, 
-        Jiyang Chen, Matt Gallivan, Mansoureh Takaffoli, Reihaneh Rabbany, Sankalp Prabhakar, Shiva Zamani Gharaghooshi, Talat Iqbal Syed, Xiaoxiao Li.
+        Past Team Members (alphabetically): Abhimanyu Panwar, Ali Yadollahi, Afra Abnar, Amin Travelsi, Eric Verbeek, Farzad Sangi, Justin Fagnan, 
+        Jiyang Chen, Matt Gallivan, Mansoureh Takaffoli, Mohammadmahdi Zafarmand, Reihaneh Rabbany, Sankalp Prabhakar, Shiva Zamani Gharaghooshi, Talat Iqbal Syed, Xiaoxiao Li.
     </AboutMeerkat>
 
     <DocumentationMeerkat>

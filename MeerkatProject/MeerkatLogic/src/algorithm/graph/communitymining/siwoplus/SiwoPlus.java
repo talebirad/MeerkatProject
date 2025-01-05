@@ -354,7 +354,8 @@ public class SiwoPlus {
     }
     
     
-    public static HashMap<Integer, Integer> runSiwoPlus(IDynamicGraph dynaGraph, TimeFrame tf, BooleanProperty isThreadRunningProperty) {        
+    public static HashMap<Integer, Integer> runSiwoPlus(IDynamicGraph dynaGraph, TimeFrame tf, BooleanProperty isThreadRunningProperty,
+            boolean strengthType, boolean mergeOutliers, boolean detectOverlap) {        
         Graph louvainGraph = new Graph();
         IGraph meerkatIGraph = dynaGraph.getGraph(tf);
         
@@ -380,7 +381,7 @@ public class SiwoPlus {
         if(isThreadRunningProperty.getValue()==false){
                     return new HashMap<>();
         }
-        SiwoPlus CommunityDetector = new SiwoPlus(louvainGraph, true, true, false, new HashSet<>());
+        SiwoPlus CommunityDetector = new SiwoPlus(louvainGraph, strengthType, mergeOutliers, detectOverlap, new HashSet<>());
         return CommunityDetector.DetectCommunities(isThreadRunningProperty);
     }
 }

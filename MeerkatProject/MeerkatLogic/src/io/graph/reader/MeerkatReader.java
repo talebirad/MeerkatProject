@@ -17,6 +17,7 @@ import datastructure.general.DynamicArray;
 import datastructure.general.Pair;
 import io.serialize.ProjectDeserialize;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -105,10 +106,13 @@ public class MeerkatReader extends GraphReader {
      */
     @Override
     public IDynamicGraph<IVertex, IEdge<IVertex>> loadFile() {
-
+        System.out.println("strFilePath: " + new File(strFilePath).getAbsolutePath());
+        
         firstRun();
         
         //create a graph if and only if one or more vertices are present.
+        System.out.println("strFilePath after first run: " + new File(strFilePath).getAbsolutePath());
+
         if(setSeenVertices.size()>0){
         
             dynamicGraph =
@@ -123,7 +127,9 @@ public class MeerkatReader extends GraphReader {
 //                InputStreamReader reader = new InputStreamReader(new FileInputStream(strFilePath));
 //                BufferedReader br = new BufferedReader(reader, BUFFER_SIZE);
 
-                InputStream is = MeerkatReader.class.getClassLoader().getResourceAsStream(strFilePath);
+//                InputStream is = MeerkatReader.class.getClassLoader().getResourceAsStream(strFilePath);
+                System.out.println("Reader strFilePath: " + new File(strFilePath).getAbsolutePath());
+                InputStream is = new FileInputStream(strFilePath);
                 BufferedReader br = new BufferedReader(new InputStreamReader(is), BUFFER_SIZE);
 
 
@@ -457,7 +463,7 @@ public class MeerkatReader extends GraphReader {
 //            InputStreamReader reader = new InputStreamReader(new FileInputStream(strFilePath));
 //            BufferedReader br = new BufferedReader(reader, BUFFER_SIZE);
 
-            InputStream is = MeerkatReader.class.getClassLoader().getResourceAsStream(strFilePath);
+            InputStream is = new FileInputStream(strFilePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is), BUFFER_SIZE);
 
             String strCurrentLine = br.readLine();

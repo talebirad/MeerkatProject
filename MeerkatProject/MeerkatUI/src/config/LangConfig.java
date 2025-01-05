@@ -306,6 +306,7 @@ public class LangConfig {
     public static String NODECTX_PIN_TAG = "NodePin";
     public static String NODECTX_UNPIN_TAG = "NodeUnpin";
     public static String NODECTX_EXTRACT_TAG = "NodeExtract" ;
+    public static String NODECTX_COMMUNITY_TAG = "SelectCommunity" ;
     
     /* ******************   EDGE CONTEXT     ******************* */
     public static String EDGECTX_MENU_TAG = "EdgeContextMenu";

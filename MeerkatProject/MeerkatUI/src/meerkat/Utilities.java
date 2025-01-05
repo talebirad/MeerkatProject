@@ -45,6 +45,8 @@ public class Utilities {
     public static boolean ProjectExists(String pstrProjectNameWithExtension, String pstrProjectDirectory) {        
         File folder = new File(pstrProjectDirectory);
         File[] listOfFiles = folder.listFiles();
+        System.out.println("\n***" + pstrProjectDirectory + String.valueOf(folder.canWrite()));
+
         for (File currentFile : listOfFiles) {
             // System.out.println("Utilities.ProjectExists(): Project: "+pstrProjectNameWithExtension+" Found: "+currentFile.getName()); // #DEBUG
             if (pstrProjectNameWithExtension.equalsIgnoreCase(currentFile.getName())) {

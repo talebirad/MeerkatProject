@@ -394,6 +394,7 @@ public class LanguageXML {
                                     , eOptionsElement.getElementsByTagName(LangConfig.NODECTX_PIN_TAG).item(0).getTextContent()
                                     , eOptionsElement.getElementsByTagName(LangConfig.NODECTX_UNPIN_TAG).item(0).getTextContent()
                                     , eOptionsElement.getElementsByTagName(LangConfig.NODECTX_EXTRACT_TAG).item(0).getTextContent()
+                                    , eOptionsElement.getElementsByTagName(LangConfig.NODECTX_COMMUNITY_TAG).item(0).getTextContent()
                             ); 
                         }    
                     }

@@ -22,15 +22,26 @@ public class SiwoPlusMiner<V extends IVertex, E extends IEdge<V>>
         extends Miner<V, E> {
 
     public static final String STR_NAME = "SiwoPlus";
-    
+    public static boolean strengthType; 
+    public static boolean mergeOutliers;
+    public static boolean detectOverlap;
     public SiwoPlusMiner(IDynamicGraph<V, E> pIGraph, TimeFrame tf, String[] parameters) {
         super(pIGraph, tf);
+        //pars the parameters shit
+        System.out.println(parameters);
+        strengthType = parameters[0].contains("2");
+        mergeOutliers = parameters[1].contains("true");
+        detectOverlap = parameters[2].contains("true");
+        System.out.println(String.valueOf(strengthType) + " " +
+                String.valueOf(mergeOutliers) + " " +
+                String.valueOf(detectOverlap));
     }
 
     @Override
     public void run() {
         System.out.println("********* SiwoPlus ++++++++");
-        mineGraph();
+        
+        mineGraph(strengthType, mergeOutliers, detectOverlap);
         if(!running){
             return;
         }
@@ -38,9 +49,9 @@ public class SiwoPlusMiner<V extends IVertex, E extends IEdge<V>>
         blnDone = true;
     }
     
-    public void mineGraph() {
+    public void mineGraph(boolean strengthType, boolean mergeOutliers, boolean detectOverlap) {
 //        HashMap<Integer, Integer> results = new HashMap<>();
-        HashMap<Integer, Integer> results = SiwoPlus.runSiwoPlus(dynaGraph, tf, this.isThreadRunningProperty);
+        HashMap<Integer, Integer> results = SiwoPlus.runSiwoPlus(dynaGraph, tf, this.isThreadRunningProperty, strengthType, mergeOutliers, detectOverlap);
         if (!running) {
             return;
         }

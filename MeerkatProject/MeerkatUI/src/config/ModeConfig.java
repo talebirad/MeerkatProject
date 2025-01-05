@@ -44,6 +44,6 @@ public class ModeConfig {
         VERTEXDELETE,
         EDGEADD,
         EDGEDELETE,
-        SHORTESTPATH
+        SHORTESTPATH 
     }
 }

@@ -39,6 +39,7 @@ public class ConfigLoader{
      * 
     */
     public static MeerkatClassConfig loadConfig(String pstrConfigFilePath) { 
+        
         hmpId2ClassMapping = ConfigParser.Parse(pstrConfigFilePath);
         return new MeerkatClassConfig(hmpId2ClassMapping);
     }

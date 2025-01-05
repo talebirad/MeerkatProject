@@ -10,6 +10,7 @@ import config.LangConfig;
 import config.VertexContextConfig;
 import config.SceneConfig;
 import config.StatusMsgsConfig;
+import datastructure.core.graph.classinterface.IVertex;
 import globalstate.MeerkatUI;
 import java.util.ArrayList;
 import java.util.Set;
@@ -59,6 +60,7 @@ public class VertexContextMenu {
     // Contents of the content menu - primary
     private MenuItem menuNodeInfo ;
     private MenuItem menuNodeNeighbour ;
+    private MenuItem menuNodeCommunity ;
     private Menu menuStyle ;
     private MenuItem menuDeleteNode ;
     private MenuItem menuPinUnpinNode ;
@@ -152,6 +154,8 @@ public class VertexContextMenu {
         });
         VertexInformationDialog.setParameters(VertexContextConfig.getVertexInfoText());
         
+        
+        
         menuNodeNeighbour = new MenuItem(VertexContextConfig.getVertexNeighborText());
         menuNodeNeighbour.setOnAction(event -> {
             event.consume();
@@ -160,6 +164,19 @@ public class VertexContextMenu {
             int intTimeFrameIndex = UIInstance.getActiveProjectTab().getActiveGraphTab().getTimeFrameIndex() ;
             NeighborhoodDegreeDialog.Display(UIInstance.getController(), intProjectID, intGraphID, intTimeFrameIndex);
         });
+//        if (this.vtxHolder.IsVertexPinned()) {
+        menuNodeCommunity = new MenuItem(VertexContextConfig.getVertexCommunityText());
+        menuNodeCommunity.setOnAction(event -> {
+            event.consume();
+            int intProjectID = UIInstance.getActiveProjectTab().getProjectID() ;
+            int intGraphID = UIInstance.getActiveProjectTab().getActiveGraphID() ;
+            int intTimeFrameIndex = UIInstance.getActiveProjectTab().getActiveGraphTab().getTimeFrameIndex() ;
+            Set<UIVertex> setSelectedVertices = UIInstance.getProject(intProjectID).getGraphTab(intGraphID).getGraphCanvas().getSelectedVertices();
+            int theVertex = setSelectedVertices.iterator().next().getID();
+            Set<Integer> setNeighbourhoodIDs = GraphAPI.getVertexCommunity(intProjectID, intGraphID, intTimeFrameIndex, theVertex) ;
+            UIInstance.getActiveProjectTab().getActiveGraphTab().getGraphCanvas().selectVertex(setNeighbourhoodIDs);
+        });
+//    }
         
         menuDeleteNode = new MenuItem(VertexContextConfig.getVertexDeleteText());
         menuDeleteNode.setOnAction(event -> {
@@ -301,7 +318,7 @@ public class VertexContextMenu {
         menuStyle.getItems().add(menuNodeSize);
         menuStyle.getItems().add(menuNodeLabelSize);
 
-        cmNode.getItems().addAll(menuNodeInfo, menuNodeNeighbour, menuStyle, menuDeleteNode, menuPinUnpinNode);
+        cmNode.getItems().addAll(menuNodeInfo, menuNodeNeighbour, menuNodeCommunity ,menuStyle, menuDeleteNode, menuPinUnpinNode);
         
         // Disable the Vertex Label Slider based on the visibility
         if (vtxHolder.getLabelHolder().getIsLabelVisible()) {
@@ -309,6 +326,7 @@ public class VertexContextMenu {
         } else {
             sliderVertexLabelSize.setDisable(true);
         }
+
     }
     
     /* *************************************************************** */

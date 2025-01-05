@@ -24,6 +24,7 @@
         <class id="rosvallinfomap">RosvallInfomapMiner</class>
         <class id="rosvallinfomod">RosvallInfomodMiner</class>
         <class id="dcmining">DynamicMiner</class>
+
     </communityminings>
     
     <linkpredictions>

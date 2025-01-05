@@ -42,6 +42,7 @@
         <class id="rosvallinfomap">RosvallInfomapMiner</class>
         <class id="rosvallinfomod">RosvallInfomodMiner</class>
         <class id="dcmining">DynamicMiner</class>
+        <class id="siwoplus">SiwoPlusMiner</class>
     </communityminings>
     
     
