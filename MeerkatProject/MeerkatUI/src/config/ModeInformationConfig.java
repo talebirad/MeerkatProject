@@ -31,4 +31,7 @@ public class ModeInformationConfig {
     public static String SELECTVERTEX_ADD_TAG = "SelectVertexAdd" ;
     public static String SELECTVERTEX_ADD ;
     
+    
+    public static String SELECTSINGLECOMMUNITYSIWOPLUS_TAG = "SelectSingleCommunitySIWOPLUS" ;
+    public static String SELECTSINGLECOMMUNITYSIWOPLUS ;
 }

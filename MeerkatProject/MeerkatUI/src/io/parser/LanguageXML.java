@@ -1007,7 +1007,7 @@ public class LanguageXML {
                             ModeConfig.EDGEADD_MODE = eOptionsElement.getElementsByTagName(ModeConfig.EDGEADD_MODE_TAG).item(0).getTextContent();
                             ModeConfig.EDGEDELETE_MODE = eOptionsElement.getElementsByTagName(ModeConfig.EDGEDELETE_MODE_TAG).item(0).getTextContent();
                             ModeConfig.SHORTESTPATH_MODE = eOptionsElement.getElementsByTagName(ModeConfig.SHORTESTPATH_MODE_TAG).item(0).getTextContent();
-                            
+                            ModeConfig.SINGLECOMMUNITYSIWOPLUS_MODE = eOptionsElement.getElementsByTagName(ModeConfig.SINGLECOMMUNITYSIWOPLUS_MODE_TAG).item(0).getTextContent();
                         }
                     }
                     
@@ -1025,6 +1025,7 @@ public class LanguageXML {
                             ModeInformationConfig.SELECTEDGE_DELETE = eOptionsElement.getElementsByTagName(ModeInformationConfig.SELECTEDGE_DELETE_TAG).item(0).getTextContent();
                             ModeInformationConfig.SELECTVERTEX_ADD = eOptionsElement.getElementsByTagName(ModeInformationConfig.SELECTVERTEX_ADD_TAG).item(0).getTextContent();
                             ModeInformationConfig.SELECTVERTEX_DELETE = eOptionsElement.getElementsByTagName(ModeInformationConfig.SELECTVERTEX_DELETE_TAG).item(0).getTextContent();
+                            ModeInformationConfig.SELECTSINGLECOMMUNITYSIWOPLUS = eOptionsElement.getElementsByTagName(ModeInformationConfig.SELECTSINGLECOMMUNITYSIWOPLUS_TAG).item(0).getTextContent();
                         }
                     }
                     

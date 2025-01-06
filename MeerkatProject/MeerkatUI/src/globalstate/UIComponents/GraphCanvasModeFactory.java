@@ -29,6 +29,8 @@ public class GraphCanvasModeFactory {
                 return new DeleteEdgeMode();
             case SHORTESTPATH:
                 return new ShortestPathMode();
+            case SINGLECOMMUNITYSIWOPLUS:
+                return new SingleNodeCommunityMode();
             default:
                 return new NormalSelectionMode(); 
         }

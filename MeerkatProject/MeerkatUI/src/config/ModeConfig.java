@@ -36,6 +36,9 @@ public class ModeConfig {
     public static String SHORTESTPATH_MODE_TAG = "ShortestPathMode" ;
     public static String SHORTESTPATH_MODE ;
     
+    public static String SINGLECOMMUNITYSIWOPLUS_MODE_TAG = "SelectSingleCommunitySIWOPLUSMode" ;
+    public static String SINGLECOMMUNITYSIWOPLUS_MODE ;
+    
     // The following enums are used for setting the comparisons
     public static enum ModeTypes {
         SELECT,
@@ -44,6 +47,7 @@ public class ModeConfig {
         VERTEXDELETE,
         EDGEADD,
         EDGEDELETE,
-        SHORTESTPATH 
+        SHORTESTPATH,
+        SINGLECOMMUNITYSIWOPLUS
     }
 }

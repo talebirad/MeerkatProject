@@ -5,7 +5,7 @@
     <WelcomeScreenMessage>Welcome to Meerkat 2.0 Miner</WelcomeScreenMessage>
     <WelcomeScreenLogo>file:resources/logo/logo.png</WelcomeScreenLogo>
 
-    <ExitTitle>Close Meerkat ?</ExitTitle>
+    <ExitTitle>Close Meerkat?</ExitTitle>
     <ExitMessage>Are you sure you want to close ?</ExitMessage>
     <ExitIconPath>file:resources/logo/logo.png</ExitIconPath>
 
@@ -192,7 +192,7 @@
             <MenuItem class="MenuItemRosvallInfomod" icon="" mnemonicParsing="false" text="Rosvall Infomod" check="false" disabled="2" idmappingparameter="rosvallinfomod" SeparatorCount="1" />            
             <MenuItem class="MenuItemDynamicCommunityMining" icon="" mnemonicParsing="false" text="Dynamic Community Mining" check="false" disabled="2" idmappingparameter="dcmining" SeparatorCount="2" />            
             <MenuItem class="MenuItemSiwoPlus" icon="" mnemonicParsing="false" text="SIWO+" check="false" disabled="2" idmappingparameter="siwoplus" SeparatorCount="0" />
-            <MenuItem class="MenuItemSiwoPlus" icon="" mnemonicParsing="false" text="SIWO single community search" check="false" disabled="2" idmappingparameter="siwoplus" SeparatorCount="0" />            
+            <MenuItem class="MenuItemSiwoSingleCommunity" icon="" mnemonicParsing="false" text="SIWO single community search" check="false" disabled="2" idmappingparameter="siwoplus" SeparatorCount="0" />            
             <MenuItem class="MenuItemClearMiningResults" icon="" mnemonicParsing="false" text="Clear Mining Results" check="false" disabled="2" idmappingparameter="" SeparatorCount="0" />
         </MenuBarOption>
         
@@ -814,6 +814,7 @@
         <EdgeAddMode>Edge Add Mode</EdgeAddMode>
         <EdgeDeleteMode>Edge Delete Mode</EdgeDeleteMode>
         <ShortestPathMode>Shortest Path Mode</ShortestPathMode>
+        <SelectSingleCommunitySIWOPLUSMode>SIWO Local Search Mode</SelectSingleCommunitySIWOPLUSMode>
     </Modes>
     
     <ModeInformation>
@@ -823,6 +824,7 @@
         <SelectEdgeDelete>Select an Edge to Delete</SelectEdgeDelete>
         <SelectVertexDelete>Select a Node to delete</SelectVertexDelete>
         <SelectVertexAdd>Select an area on canvas to add new Node</SelectVertexAdd>
+        <SelectSingleCommunitySIWOPLUS>Select a Node for a Local SIWO Search</SelectSingleCommunitySIWOPLUS>
     </ModeInformation>
 
     <LinkPrediction>
