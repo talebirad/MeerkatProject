@@ -1,0 +1,15 @@
+FASTCOMMUNITY_INFERENCE_ALGORITHM
+START-----:	Mon Jan 06 10:04:27 2025
+---FILES--------
+DIRECTORY-:	
+F_IN------:	temp.pairs
+F_JOINS---:	temp-fc_firstrun.joins
+F_INFO----:	temp-fc_firstrun.info
+---NET_STATS----
+MAXID-----:	34
+NUMNODES--:	34
+NUMEDGES--:	78
+---MODULARITY---
+MAXQ------:	0.380671
+STEP------:	31
+EXIT------:	Mon Jan 06 10:04:27 2025
