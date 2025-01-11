@@ -8,14 +8,26 @@
 
 **/.nb-gradle/
 
+
+MeerkatProject/MeerkatAPI/nbproject/build-impl.xml
+MeerkatProject/MeerkatAPI/nbproject/genfiles.properties
+MeerkatProject/MeerkatAPI/nbproject/project.properties
+MeerkatProject/MeerkatAPI/nbproject/project.xml
 MeerkatProject/MeerkatAPI/nbproject/private/
+
 MeerkatProject/MeerkatAPI/build/
 MeerkatProject/MeerkatAPI/nbbuild/
 MeerkatProject/MeerkatAPI/dist/
 MeerkatProject/MeerkatAPI/nbdist/
 MeerkatProject/MeerkatAPI/.nb-gradle/
 
+
+MeerkatProject/MeerkatLogic/nbproject/build-impl.xml
+MeerkatProject/MeerkatLogic/nbproject/genfiles.properties
+MeerkatProject/MeerkatLogic/nbproject/project.properties
+MeerkatProject/MeerkatLogic/nbproject/project.xml
 MeerkatProject/MeerkatLogic/nbproject/private/
+
 MeerkatProject/MeerkatLogic/build/
 MeerkatProject/MeerkatLogic/nbbuild/
 MeerkatProject/MeerkatLogic/dist/
@@ -23,8 +35,12 @@ MeerkatProject/MeerkatLogic/nbdist/
 MeerkatProject/MeerkatLogic/.nb-gradle/
 MeerkatProject/MeerkatLogic/junit_test_files/
 
-
+MeerkatProject/MeerkatUI/nbproject/build-impl.xml
+MeerkatProject/MeerkatUI/nbproject/genfiles.properties
+MeerkatProject/MeerkatUI/nbproject/project.properties
+MeerkatProject/MeerkatUI/nbproject/project.xml
 MeerkatProject/MeerkatUI/nbproject/private/
+
 MeerkatProject/MeerkatUI/build/
 MeerkatProject/MeerkatUI/nbbuild/
 MeerkatProject/MeerkatUI/dist/
