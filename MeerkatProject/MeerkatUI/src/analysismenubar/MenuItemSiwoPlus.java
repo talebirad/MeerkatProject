@@ -8,6 +8,8 @@ package analysismenubar;
 import analysisscreen.AnalysisController;
 import communitymining.dialogwindow.SiwoPlus;
 import javafx.scene.control.MenuItem;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -23,7 +25,7 @@ public class MenuItemSiwoPlus extends MenuItemGeneric implements IMenuItem {
     public void Click(AnalysisController pController, MenuItem pMenuItem, Object pobjParameter) {
         
         // Display the Parameters dialog box
-        SiwoPlus.Display(pController, pobjParameter.toString());                
+        SiwoPlus.Display(pController, pobjParameter.toString(),new ArrayList<Integer>());                
     }
     
 }

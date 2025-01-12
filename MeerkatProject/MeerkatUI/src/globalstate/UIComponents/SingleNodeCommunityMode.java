@@ -70,6 +70,21 @@ public class SingleNodeCommunityMode implements GraphCanvasMode{
 //        MeerkatUI UIInstance = MeerkatUI.getUIInstance();
 //        VertexDeleteConfirmationDialog.Display(UIInstance.getController());
 //        //EdgeDeleteConfirmationDialog.Display(UIInstance.getController());
+        MeerkatUI UIInstance = MeerkatUI.getUIInstance();
+        GraphCanvas graphCanvas = UIInstance.getActiveProjectTab().getActiveGraphTab().getGraphCanvas();
+   Map<UIVertex, Set<UIEdge>> vertexEdgesMap = graphCanvas.getVertexEdgesMap();
+                List<Integer> vertexIDs = new ArrayList<>();
+                List<Integer> edgeIDs = new ArrayList<>();
+
+         for(UIVertex uiVertex : graphCanvas.getSelectedVertices()){
+
+                    vertexIDs.add(uiVertex.getVertexHolder().getID());
+                    
+                }
+         System.out.println("Vertex IDs"+vertexIDs);
+         if (!vertexIDs.isEmpty())
+            SiwoPlus.Display(MeerkatUI.getUIInstance().getController(), "siwoplus",vertexIDs);
+
     }
 
     @Override
@@ -88,7 +103,7 @@ public class SingleNodeCommunityMode implements GraphCanvasMode{
 //        int theVertex = setSelectedVertices.iterator().next().getID();
 //        Set<Integer> setNeighbourhoodIDs = GraphAPI.getVertexCommunity(intProjectID, intGraphID, intTimeFrameIndex, theVertex) ;
 //        MeerkatUI.getUIInstance().getActiveProjectTab().getActiveGraphTab().getGraphCanvas().selectVertex(setNeighbourhoodIDs);
-            SiwoPlus.Display(MeerkatUI.getUIInstance().getController(), "");
+//            SiwoPlus.Display(MeerkatUI.getUIInstance().getController(), "siwoplus");
     }
 
     @Override

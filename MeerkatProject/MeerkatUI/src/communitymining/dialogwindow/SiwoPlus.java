@@ -10,6 +10,7 @@ import communitymining.parameters.SiwoPlusMiningParam;
 import config.LangConfig;
 import config.StatusMsgsConfig;
 import globalstate.MeerkatUI;
+import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -124,7 +125,7 @@ public class SiwoPlus {
 //            ex.printStackTrace();
 //        } 
 //    }
-    public static void Display(AnalysisController pController, String pstrMappingID) {
+    public static void Display(AnalysisController pController, String pstrMappingID,List<Integer> VertexIDs) {
         try {
             boolean commMiningStatus = ClearMiningResults.checkExistingCommMining(Boolean.FALSE);
             if (commMiningStatus) {
@@ -160,7 +161,9 @@ public class SiwoPlus {
                 // ROW 2 - OVERLAP
                 Label lblOverlap = new Label("Overlap");
                 CheckBox chbOverlap = new CheckBox();
-                chbOverlap.setSelected(true);
+                chbOverlap.setSelected(false);
+                if(!VertexIDs.isEmpty())
+                chbOverlap.setDisable(true);
 
                 GridPane.setHalignment(lblOverlap, HPos.LEFT);
                 gridUserControls.add(lblOverlap, 0, 1);
@@ -170,7 +173,7 @@ public class SiwoPlus {
                 // ROW 3 - MERGE OUTLIERS
                 Label lblMergeOutliers = new Label("Merge Outliers");
                 CheckBox chbMergeOutliers = new CheckBox();
-                chbMergeOutliers.setSelected(false);
+                chbMergeOutliers.setSelected(true);
 
                 GridPane.setHalignment(lblMergeOutliers, HPos.LEFT);
                 gridUserControls.add(lblMergeOutliers, 0, 2);
@@ -187,10 +190,11 @@ public class SiwoPlus {
                     ClearMiningResults.clearCommunityAssignment();
 
                     // Collecting parameters
-                    String[] arrstrParameters = new String[3];
+                    String[] arrstrParameters = new String[4];
                     arrstrParameters[0] = "StrengthType:" + cmbStrengthType.getValue();
                     arrstrParameters[1] = "Overlap:" + chbOverlap.isSelected();
                     arrstrParameters[2] = "MergeOutliers:" + chbMergeOutliers.isSelected();
+                    arrstrParameters[3] = "VertexIDs:" + VertexIDs.toString();
 
                     stgSiwoPlus.close();
                     pController.updateStatusBar(true, StatusMsgsConfig.MINING_RESULTSCOMPUTING);
@@ -228,7 +232,7 @@ public class SiwoPlus {
                     }
                 });
 
-                stgSiwoPlus.setTitle("SIWO+ Algorithm Parameters");
+                stgSiwoPlus.setTitle("SIWO Algorithm Parameters");
                 stgSiwoPlus.setResizable(false);
                 stgSiwoPlus.setScene(scnSiwoPlus);
                 stgSiwoPlus.show();

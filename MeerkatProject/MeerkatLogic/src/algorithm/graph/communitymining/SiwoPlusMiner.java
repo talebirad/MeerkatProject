@@ -25,23 +25,37 @@ public class SiwoPlusMiner<V extends IVertex, E extends IEdge<V>>
     public static boolean strengthType; 
     public static boolean mergeOutliers;
     public static boolean detectOverlap;
+    public static ArrayList<Integer> vertexIDs = new ArrayList<>();
+    
     public SiwoPlusMiner(IDynamicGraph<V, E> pIGraph, TimeFrame tf, String[] parameters) {
         super(pIGraph, tf);
-        //pars the parameters shit
-        System.out.println(parameters);
+        System.out.println("PARAMETER 3: "+ parameters[3]);
         strengthType = parameters[0].contains("2");
-        mergeOutliers = parameters[1].contains("true");
-        detectOverlap = parameters[2].contains("true");
+        detectOverlap = parameters[1].contains("true");
+        mergeOutliers = parameters[2].contains("true");
         System.out.println(String.valueOf(strengthType) + " " +
                 String.valueOf(mergeOutliers) + " " +
                 String.valueOf(detectOverlap));
+        String vertexIDs_str = parameters[3].substring("VertexIDs:[".length(),parameters[3].length()-1);
+        String[] numberStrs = vertexIDs_str.isEmpty() ? new String[0] : vertexIDs_str.split(",");
+
+        
+        vertexIDs.clear();
+        for(int i = 0;i < numberStrs.length;i++){
+            vertexIDs.add(Integer.parseInt(numberStrs[i].trim()));}
+        System.out.println(vertexIDs_str);
+
+        System.out.println(vertexIDs);
+        
+        
+        
     }
 
     @Override
     public void run() {
         System.out.println("********* SiwoPlus ++++++++");
         
-        mineGraph(strengthType, mergeOutliers, detectOverlap);
+        mineGraph(strengthType, mergeOutliers, detectOverlap,vertexIDs);
         if(!running){
             return;
         }
@@ -49,9 +63,9 @@ public class SiwoPlusMiner<V extends IVertex, E extends IEdge<V>>
         blnDone = true;
     }
     
-    public void mineGraph(boolean strengthType, boolean mergeOutliers, boolean detectOverlap) {
+    public void mineGraph(boolean strengthType, boolean mergeOutliers, boolean detectOverlap,ArrayList<Integer> vertexIDs) {
 //        HashMap<Integer, Integer> results = new HashMap<>();
-        HashMap<Integer, Integer> results = SiwoPlus.runSiwoPlus(dynaGraph, tf, this.isThreadRunningProperty, strengthType, mergeOutliers, detectOverlap);
+        HashMap<Integer, Integer> results = SiwoPlus.runSiwoPlus(dynaGraph, tf, this.isThreadRunningProperty, strengthType, mergeOutliers, detectOverlap,vertexIDs);
         if (!running) {
             return;
         }

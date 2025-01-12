@@ -487,13 +487,14 @@ public class AnalysisController implements Initializable {
      * 
     */
     private void showAndEnableDCPanel(int pintProjectID, int pintGraphID, int pintTimeFrameIndex, boolean DCMiningStatus) {
-              
+//        System.out.println("hint me");
         // Remove the Status bar so that the ordering of the children on the VBox Application is maintained
         vboxApplication.getChildren().remove(anchStatusBar);
         
         // Now Add both the DCMining Panel and Status Bar Panel
         if (!vboxApplication.getChildren().contains(anchDCMining)){
-            vboxApplication.getChildren().add(anchDCMining);
+            if(DCMiningStatus)
+                vboxApplication.getChildren().add(anchDCMining);
         }        
         if (!vboxApplication.getChildren().contains(anchStatusBar)){
             vboxApplication.getChildren().add(anchStatusBar);
@@ -638,7 +639,7 @@ public class AnalysisController implements Initializable {
      *  
      * 
     */
-    private void hideDCPanel() {
+    public void hideDCPanel() {
         
         /*
         btnEvents.setDisable(false);
@@ -669,7 +670,6 @@ public class AnalysisController implements Initializable {
         
         // Remove the DC Mining Panel
         vboxApplication.getChildren().remove(anchDCMining);
-          
     }
     
     /**
@@ -755,6 +755,7 @@ public class AnalysisController implements Initializable {
         } else {
             hideDCPanel();
         }
+//        System.out.println(DCMiningStatus);
     }
     
     /**
@@ -1179,8 +1180,12 @@ public class AnalysisController implements Initializable {
         // Update the Thread Tree View
         getTreeView().getSelectionModel().select(UIInstance.getAllProject().get(intProjectID).getTreeItemProject());
         boolean DCMiningStatus = false;
-        if(UIInstance.getActiveProjectTab().getGraphCount()>0)
+        if(UIInstance.getActiveProjectTab().getGraphCount()>0){
             DCMiningStatus = UIInstance.getActiveProjectTab().getActiveGraphTab().getDCommMiningStatus();
+        }
+        System.out.println("is" + UIInstance.getActiveProjectTab().getActiveGraphTab().getDCommMiningStatus() +
+        "equal to" + DCMiningStatus);
+        
         /*
         // Update the Accordion Tab
             1) Check if the project consists any graphs

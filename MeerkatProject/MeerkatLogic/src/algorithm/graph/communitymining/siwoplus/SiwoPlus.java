@@ -163,32 +163,41 @@ public class SiwoPlus {
     }
     
     public HashMap<Integer, Integer> DetectCommunities(BooleanProperty isThreadRunningProperty) {
+        System.out.println("Parameters: Str type "+this.mergeOutliers +" Detect overlap " +this.detectOverlap+" Merge Outlier "+this.mergeOutliers);
         while(this.processedNodes.size() < this.graph.getNumberOfNodes()) {
             this.findCommunity();
         }
         this.nodesToIgnore.clear();
-        if(this.mergeOutliers == true) {
+        if(this.mergeOutliers) {
             this.amendPartition();
         }
         return this.convertPartition();
     }
-    
+
     public void findCommunity() {
         HashSet<Integer> remainingNodes = new HashSet<>();
         this.graph.nodes().stream().filter((node) -> (this.processedNodes.contains(node.getId()) == false)).forEachOrdered((node) -> {
             remainingNodes.add(node.getId());
         });
         
-        int i = 0, randomCounter = new Random().nextInt(remainingNodes.size());
+//        int i = 0, randomCounter = new Random().nextInt(remainingNodes.size());
+//        int startNodeId = -1;
+//        for(Integer nodeId : remainingNodes) {
+//            if (i == randomCounter) {
+//                startNodeId = nodeId;
+//                break;
+//            }
+//            i++;
+//        }
         int startNodeId = -1;
-        for(Integer nodeId : remainingNodes) {
-            if (i == randomCounter) {
+        int bestDeg = -1;
+        for (Integer nodeId : remainingNodes) {
+            int deg = (int) this.graph.degree(nodeId);
+            if (deg > bestDeg) {
+                bestDeg = deg;
                 startNodeId = nodeId;
-                break;
             }
-            i++;
         }
-        
         Node startNode = this.graph.getNode(startNodeId);
         this.setStartingNode(startNode);
         this.assignLocalStrength(startNode);
@@ -310,7 +319,7 @@ public class SiwoPlus {
                                 if(strengths.containsKey(i)) {
                                     temp = strengths.get(i);
                                 }
-                                strengths.put(i, temp + this.graphCopy.getNode(nodeId).edgeWeight(neighborId));
+                                strengths.put(i, temp + this.graphCopy.getNode(nodeId).getStrength(neighborId));
                                 temp = 0.0;
                             }
                         }
@@ -355,10 +364,10 @@ public class SiwoPlus {
     
     
     public static HashMap<Integer, Integer> runSiwoPlus(IDynamicGraph dynaGraph, TimeFrame tf, BooleanProperty isThreadRunningProperty,
-            boolean strengthType, boolean mergeOutliers, boolean detectOverlap) {        
+            boolean strengthType, boolean mergeOutliers, boolean detectOverlap,ArrayList<Integer> vertexIDs) {        
         Graph louvainGraph = new Graph();
         IGraph meerkatIGraph = dynaGraph.getGraph(tf);
-        
+        System.out.println("SIWO PLUS RUN WITH VERTICES "+vertexIDs.toString());
         Map<Integer, Node> mapNodes = new HashMap<>();
         meerkatIGraph.getAllVertexIds().forEach((vid) -> {
             Node newNode = louvainGraph.addNode((Integer)vid);
@@ -382,6 +391,17 @@ public class SiwoPlus {
                     return new HashMap<>();
         }
         SiwoPlus CommunityDetector = new SiwoPlus(louvainGraph, strengthType, mergeOutliers, detectOverlap, new HashSet<>());
+        
+        
+        if (vertexIDs == null || vertexIDs.isEmpty()) {
+        // Run global SIWO if no query is given
         return CommunityDetector.DetectCommunities(isThreadRunningProperty);
+        
+        } else {
+            // Run “multi‐seed” SIWO
+//            return CommunityDetector.detectFromSeeds(vertexIDs, isThreadRunningProperty);
+            return CommunityDetector.DetectCommunities(isThreadRunningProperty);
+
+        }
     }
 }

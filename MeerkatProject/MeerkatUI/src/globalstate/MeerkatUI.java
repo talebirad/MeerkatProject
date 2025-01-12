@@ -408,6 +408,7 @@ public class MeerkatUI {
     public void UpdateUI() {
         ToolsActivation() ;
         ActivateMenubar() ;
+        getController().hideDCPanel();
         getController().updateDCMiningPanel();
     }
     
