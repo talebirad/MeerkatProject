@@ -74,6 +74,8 @@ public class DeleteVertexMode implements GraphCanvasMode{
     @Override
     public void primaryMouseReleasedOnVertex(VertexHolder vertexHolder, ModeInformation modeInfo) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+               System.out.println("-=-----------------===================------------ In DeleteVERTEXMode mode MOUSERELEASED on vertex");
+
         MeerkatUI UIInstance = MeerkatUI.getUIInstance();
         VertexDeleteConfirmationDialog.Display(UIInstance.getController());
         

@@ -21,6 +21,7 @@ import javafx.beans.property.BooleanProperty;
 /**
  *
  * @author mahdi
+ * @version Jan 2025: Yashar - Updated SIWO, and added Local SIWO.
  */
 public class SiwoPlus {
     double __MIN = 0.000001;
@@ -161,11 +162,47 @@ public class SiwoPlus {
             this.strengthAssignedNodes.add(node.getId());
     	}
     }
+    public HashMap<Integer, Integer> detectFromSeeds(List<Integer> seeds, 
+                                                BooleanProperty isThreadRunningProperty) {
+        //include neighbors of any degree‐1 seeds
+    for (int i = 0; i < seeds.size(); i++) {
+        Integer s = seeds.get(i);
+        if (this.graph.degree(s) == 1.0) {
+            Node seedNode = this.graph.getNode(s);
+            if (seedNode != null) {
+                for (Integer nbrId : seedNode.neighbors().keySet()) {
+                    if (!seeds.contains(nbrId)) {
+                        seeds.add(nbrId);
+                    }
+                }
+            }
+        }
+    }
     
+        this.partition.clear();
+    this.processedNodes.clear();
+    this.nodesToIgnore.clear();
+    this.reset(); 
+    findCommunity(seeds, isThreadRunningProperty);
+    System.out.println("detectFromSeeds found: " + this.community);
+
+    return this.convertPartition();
+}
     public HashMap<Integer, Integer> DetectCommunities(BooleanProperty isThreadRunningProperty) {
         System.out.println("Parameters: Str type "+this.mergeOutliers +" Detect overlap " +this.detectOverlap+" Merge Outlier "+this.mergeOutliers);
         while(this.processedNodes.size() < this.graph.getNumberOfNodes()) {
-            this.findCommunity();
+                    HashSet<Integer> remainingNodes = new HashSet<>();
+        this.graph.nodes().forEach(node -> {
+            if (!this.processedNodes.contains(node.getId())) {
+                remainingNodes.add(node.getId());
+            }
+        });
+
+        // If none left, we are done
+        if (remainingNodes.isEmpty()) break;
+    int startNodeId = pickHighestDegreeNode(remainingNodes);
+            findCommunity(startNodeId, isThreadRunningProperty);
+
         }
         this.nodesToIgnore.clear();
         if(this.mergeOutliers) {
@@ -173,34 +210,39 @@ public class SiwoPlus {
         }
         return this.convertPartition();
     }
-
-    public void findCommunity() {
+private int pickHighestDegreeNode(HashSet<Integer> candidateNodes) {
+    int bestNode = -1;
+    double bestDegree = -1;
+    for (Integer nodeId : candidateNodes) {
+        double deg = this.graph.degree(nodeId);
+        if (deg > bestDegree) {
+            bestDegree = deg;
+            bestNode = nodeId;
+        }
+    }
+    return bestNode;
+}
+    public void findCommunity(List<Integer> seeds, BooleanProperty isThreadRunningProperty) {
+        this.reset();  
         HashSet<Integer> remainingNodes = new HashSet<>();
         this.graph.nodes().stream().filter((node) -> (this.processedNodes.contains(node.getId()) == false)).forEachOrdered((node) -> {
             remainingNodes.add(node.getId());
         });
-        
-//        int i = 0, randomCounter = new Random().nextInt(remainingNodes.size());
-//        int startNodeId = -1;
-//        for(Integer nodeId : remainingNodes) {
-//            if (i == randomCounter) {
-//                startNodeId = nodeId;
-//                break;
-//            }
-//            i++;
-//        }
-        int startNodeId = -1;
-        int bestDeg = -1;
-        for (Integer nodeId : remainingNodes) {
-            int deg = (int) this.graph.degree(nodeId);
-            if (deg > bestDeg) {
-                bestDeg = deg;
-                startNodeId = nodeId;
+       for (Integer seedId : seeds) {
+        if (!this.community.contains(seedId)) {
+            this.community.add(seedId);
+        }
+    }
+
+    for (Integer seedId : seeds) {
+        Node seedNode = this.graph.getNode(seedId);
+        this.assignLocalStrength(seedNode);
+        for (Integer nbrId : seedNode.neighbors().keySet()) {
+            if (!this.community.contains(nbrId)) {
+                this.shell.add(nbrId);
             }
         }
-        Node startNode = this.graph.getNode(startNodeId);
-        this.setStartingNode(startNode);
-        this.assignLocalStrength(startNode);
+    }
         
         HashMap<Integer, Double> improvements = new HashMap<>();
         
@@ -235,11 +277,17 @@ public class SiwoPlus {
                 this.nodesToIgnore.add(nodeId);
             });
         }
+        System.out.println("Local SIWO found community: " + this.community);
         
         this.partition.add(new ArrayList<>(this.community));
-        this.reset();
+//        this.reset();
     }
-    
+    public void findCommunity(int singleSeedId, BooleanProperty isThreadRunningProperty) {
+    List<Integer> seeds = new ArrayList<>();
+    seeds.add(singleSeedId);
+    findCommunity(seeds, isThreadRunningProperty);
+}
+
     public int findBestNextNode(HashMap<Integer, Double> improvements) {
     	int newNodeId = this.community.get(this.community.size() - 1);
         this.shell.forEach((nodeId) -> {
@@ -398,9 +446,8 @@ public class SiwoPlus {
         return CommunityDetector.DetectCommunities(isThreadRunningProperty);
         
         } else {
-            // Run “multi‐seed” SIWO
-//            return CommunityDetector.detectFromSeeds(vertexIDs, isThreadRunningProperty);
-            return CommunityDetector.DetectCommunities(isThreadRunningProperty);
+            // Run multi‐seed SIWO
+            return CommunityDetector.detectFromSeeds(vertexIDs, isThreadRunningProperty);
 
         }
     }

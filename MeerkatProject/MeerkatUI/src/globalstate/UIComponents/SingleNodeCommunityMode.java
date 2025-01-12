@@ -46,7 +46,7 @@ public class SingleNodeCommunityMode implements GraphCanvasMode{
         sceneGestures.setCurrentGraphCanvasMode(this);
         modeInfo.updateModeInformation(ModeConfig.ModeTypes.SINGLECOMMUNITYSIWOPLUS, ModeConfig.SINGLECOMMUNITYSIWOPLUS_MODE, ModeInformationConfig.SELECTSINGLECOMMUNITYSIWOPLUS);
         
-        System.out.println("-=-----------------===================------------ In DELETEVERTEXMODE mode ACTIVATED ");
+        System.out.println("-=-----------------===================------------ In SIWOSEARCH mode ACTIVATED ");
 
         // Changing the cursor of the application
 //        c1 = new ImageCursor(new Image(GraphEditingToolsConfig.getDeleteVertexImageURL()));
@@ -82,7 +82,7 @@ public class SingleNodeCommunityMode implements GraphCanvasMode{
                     
                 }
          System.out.println("Vertex IDs"+vertexIDs);
-         if (!vertexIDs.isEmpty())
+         if (vertexIDs.size()>=1)
             SiwoPlus.Display(MeerkatUI.getUIInstance().getController(), "siwoplus",vertexIDs);
 
     }
@@ -104,11 +104,38 @@ public class SingleNodeCommunityMode implements GraphCanvasMode{
 //        Set<Integer> setNeighbourhoodIDs = GraphAPI.getVertexCommunity(intProjectID, intGraphID, intTimeFrameIndex, theVertex) ;
 //        MeerkatUI.getUIInstance().getActiveProjectTab().getActiveGraphTab().getGraphCanvas().selectVertex(setNeighbourhoodIDs);
 //            SiwoPlus.Display(MeerkatUI.getUIInstance().getController(), "siwoplus");
+    
+            System.out.println("-=-----------------===================------------ In SIWO search mode MOUSE RELEASED ON VERTEX");
+//        MeerkatUI UIInstance = MeerkatUI.getUIInstance();
+//        VertexDeleteConfirmationDialog.Display(UIInstance.getController());
+//        //EdgeDeleteConfirmationDialog.Display(UIInstance.getController());
+        MeerkatUI UIInstance = MeerkatUI.getUIInstance();
+        GraphCanvas graphCanvas = UIInstance.getActiveProjectTab().getActiveGraphTab().getGraphCanvas();
+        System.out.println("getIsVertexClicked: "+graphCanvas.getIsVertexClicked());
+//        if (graphCanvas.getDragged()) {
+//        //avoid multiple calls when the user is selecting multiple vertices
+//        System.out.println("Skipping single-click logic because a drag selection is in progress");
+//        return;
+//    }
+if(graphCanvas.getIsVertexClicked()){
+        Map<UIVertex, Set<UIEdge>> vertexEdgesMap = graphCanvas.getVertexEdgesMap();
+                List<Integer> vertexIDs = new ArrayList<>();
+                List<Integer> edgeIDs = new ArrayList<>();
+
+         for(UIVertex uiVertex : graphCanvas.getSelectedVertices()){
+
+                    vertexIDs.add(uiVertex.getVertexHolder().getID());
+                    
+                }
+         System.out.println("Vertex IDs"+vertexIDs);
+         if (vertexIDs.size()==1)
+            SiwoPlus.Display(MeerkatUI.getUIInstance().getController(), "siwoplus",vertexIDs);
+}
     }
 
     @Override
     public void primaryMouseReleasedOnEdge(UIEdge uiEdge) {
-        MeerkatUI UIInstance = MeerkatUI.getUIInstance();
+//        MeerkatUI UIInstance = MeerkatUI.getUIInstance();
         //EdgeDeleteConfirmationDialog.Display(UIInstance.getController());
     }
     private static void removeVertices(AnalysisController pController) {
