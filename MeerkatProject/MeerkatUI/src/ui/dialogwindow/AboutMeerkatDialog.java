@@ -139,15 +139,18 @@ public class AboutMeerkatDialog {
         String details = "For more details please visit us online at: ";
         String emailDetails = " or email us at: meerkat@cs.ualberta.ca";
         
-        String meerkatVersion = "Meerkat Version: "+MeerkatSoftwareValidator.getMeerkatVersion();
-        String meerkatReleaseDate = "Version Release Date: 2018 February 02";
+        String meerkatVersion = "Meerkat Version: 2"+MeerkatSoftwareValidator.getMeerkatVersion();
+        String meerkatReleaseDate = "Version Release Date: 2025-01-04";
 
-        String meerkatcurrentDevs = "Current Developers : Sankalp Prabhakar, Talat Iqbal Syed";
+        String meerkatcurrentDevs = "Current Developer : Yashar Talebirad";
         
-        String meerkatPastDevs = "Past and Present Team Members (alphabetically): Abhimanyu Panwar, Ali Yadollahi, Afra Abnar, Amin Travelsi, Eric Verbeek, Farzad Sangi, Justin Fagnan, \n" +
-                                "Jiyang Chen, Matt Gallivan, Mansoureh Takaffoli, Reihaneh Rabbany, Sankalp Prabhakar, Shiva Zamani Gharaghooshi, "
-                                + "Talat Iqbal Syed, Xiaoxiao Li.";
+        String meerkatPastDevs = "Past Team Members (alphabetically): Abhimanyu Panwar, Ali Yadollahi, Afra Abnar, Amin Travelsi, Eric Verbeek, Farzad Sangi, Justin Fagnan, \n" +
+"        Jiyang Chen, Matt Gallivan, Mansoureh Takaffoli, Mohammadmahdi Zafarmand, Reihaneh Rabbany, Sankalp Prabhakar, Shiva Zamani Gharaghooshi, Talat Iqbal Syed, Xiaoxiao Li.\n" +
+"";
 
+        
+
+        
         
         VBox labels = new VBox();
         Label label1 = new Label(aboutMeerkat);

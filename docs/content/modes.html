@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Mode</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+  <div class="container">
+    <h1>How to Add a New Selection Mode in MeerkatProject</h1>
+    <p>This guide explains how to <strong>add a new selection mode</strong> to MeerkatProject, enabling users to select vertices in different ways within the graph visualization. We will go through how we added the SIWO Community Search Mode as an example. </p>
+    <hr>
+    <h2>1. Define the Selection Mode in <code>ModeConfig.java</code></h2>
+    <p>Add a new enum value for the selection mode:</p>
+    <pre><code>public static String SINGLECOMMUNITYSIWOPLUS_MODE_TAG = "SelectSingleCommunitySIWOPLUSMode";
+public static String SINGLECOMMUNITYSIWOPLUS_MODE;
+
+// The following enums are used for setting the comparisons
+public static enum ModeTypes {
+    SELECT,
+    VERTEXADD,
+    VERTEXMULTIFRAMEADD,
+    VERTEXDELETE,
+    EDGEADD,
+    EDGEDELETE,
+    SHORTESTPATH,
+    SINGLECOMMUNITYSIWOPLUS
+}
+</code></pre>
+    <hr>
+    <h2>2. Selecting the Mode in Code</h2>
+    <p>Activate the selection mode with:</p>
+    <pre><code>UIInstance.getActiveProjectTab().getActiveGraphTab().setGraphCanvasMode(ModeConfig.ModeTypes.SINGLECOMMUNITYSIWOPLUS);
+</code></pre>
+    <hr>
+    <h2>3. Define the Selection Mode in <code>english.xml</code></h2>
+    <p>Add a new text entry:</p>
+    <pre><code>&lt;Modes&gt;
+    &lt;SelectMode&gt;Select Mode&lt;/SelectMode&gt;
+    &lt;VertexAddMode&gt;Vertex Add Mode&lt;/VertexAddMode&gt;
+    &lt;VertexMultiFrameAddMode&gt;Vertex Multiframe Add Mode&lt;/VertexMultiFrameAddMode&gt;
+    &lt;VertexDeleteMode&gt;Vertex Delete Mode&lt;/VertexDeleteMode&gt;
+    &lt;EdgeAddMode&gt;Edge Add Mode&lt;/EdgeAddMode&gt;
+    &lt;EdgeDeleteMode&gt;Edge Delete Mode&lt;/EdgeDeleteMode&gt;
+    &lt;ShortestPathMode&gt;Shortest Path Mode&lt;/ShortestPathMode&gt;
+    &lt;SelectSingleCommunitySIWOPLUSMode&gt;SIWO Local Search Mode&lt;/SelectSingleCommunitySIWOPLUSMode&gt;
+&lt;/Modes&gt;
+</code></pre>
+    <hr>
+    <h2>4. Add New Fields in <code>ModeInformationConfig.java</code></h2>
+    <p>Update to store and manage the selection mode information:</p>
+    <pre><code>public class ModeInformationConfig {
+    
+    public static String SELECTSINGLECOMMUNITYSIWOPLUS_TAG = "SelectSingleCommunitySIWOPLUS";
+    public static String SELECTSINGLECOMMUNITYSIWOPLUS;
+}
+</code></pre>
+    <hr>
+    <h2>5. Modify <code>GraphCanvasModeFactory.java</code> to Handle the New Mode</h2>
+    <p>Add a case for the new mode:</p>
+    <pre><code>public class GraphCanvasModeFactory {
+    public GraphCanvasMode getGraphCanvasMode(ModeTypes pstrCanvasMode){
+        switch (pstrCanvasMode) {
+            case SELECT:
+                return new NormalSelectionMode();
+            case VERTEXADD:
+                return new AddVertexMode();
+            case EDGEADD:
+                return new AddEdgeMode();
+            case VERTEXMULTIFRAMEADD:
+                return new AddVertexMultipleTimeFramesMode();
+            case VERTEXDELETE:
+                return new DeleteVertexMode();
+            case EDGEDELETE:
+                return new DeleteEdgeMode();
+            case SHORTESTPATH:
+                return new ShortestPathMode();
+            case SINGLECOMMUNITYSIWOPLUS:
+                return new SingleNodeCommunityMode(); // New functionality
+            default:
+                return new NormalSelectionMode(); 
+        }
+    }
+}
+</code></pre>
+    <hr>
+    <h2>6. Implement the Logic Class for the New Mode</h2>
+    <p>Create the logic class (for example, <code>SingleNodeCommunityMode.java</code>):</p>
+    <pre><code>public class SingleNodeCommunityMode extends GraphCanvasMode {
+
+    @Override
+    public void handleMouseClick(MouseEvent event) {
+        System.out.println("Single Node Community Mode Activated");
+        GraphNode selectedNode = getNodeAt(event.getX(), event.getY());
+        if (selectedNode != null) {
+            performSiwoPlusSearch(selectedNode);
+        }
+    }
+
+    private void performSiwoPlusSearch(GraphNode node) {
+        System.out.println("Performing SIWO+ Search on Node: " + node.getId());
+    }
+}
+</code></pre>
+    <hr>
+    <h2>7. Load Mode Data Information</h2>
+    <p>Ensure that <code>ModeConfig</code> and <code>ModeInformationConfig</code> correctly load the mode settings from the XML configuration:</p>
+    <pre><code>ModeConfig.SINGLECOMMUNITYSIWOPLUS_MODE = eOptionsElement.getElementsByTagName(ModeConfig.SINGLECOMMUNITYSIWOPLUS_MODE_TAG).item(0).getTextContent();
+ModeInformationConfig.SELECTSINGLECOMMUNITYSIWOPLUS = eOptionsElement.getElementsByTagName(ModeInformationConfig.SELECTSINGLECOMMUNITYSIWOPLUS_TAG).item(0).getTextContent();
+</code></pre>
+    <hr>
+    <h2>8. Testing the Feature</h2>
+    <ul>
+      <li>Run the application and open the selection mode menu.</li>
+      <li>Select the new SIWO+ Selection mode.</li>
+      <li>Verify that it behaves as expected.</li>
+    </ul>
+    <p>Now you can extend selection functionality in MeerkatProject!</p>
+  </div>
+</body>
+</html>

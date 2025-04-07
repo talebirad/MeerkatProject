@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Mining Algorithm UI</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+  <div class="container">
+    <h1>How to Add a New Community Mining Algorithm to the Menu in MeerkatProject</h1>
+    <p>This tutorial provides a <strong>step-by-step guide</strong> for adding a <strong>new community mining algorithm</strong> to the <strong>Community Mining menu</strong> in MeerkatProject. Follow these steps to add, configure, and integrate new algorithms that interact with the canvas and display clustering results.</p>
+    <hr>
+    <h2>1. Add the New Algorithm to <code>english.xml</code></h2>
+    <p>To make the new algorithm appear in the <strong>Community Mining menu</strong>, update <code>MeerkatProject/MeerkatUI/resources/languages/english.xml</code>.</p>
+    <h3>Example XML Entry:</h3>
+    <pre><code>&lt;MenuItem class="MenuItemNewAlgorithm" icon="" mnemonicParsing="false" text="New Algorithm" check="false" disabled="2" idmappingparameter="newalgorithm" SeparatorCount="0" /&gt;
+</code></pre>
+    <p>This ensures the <strong>menu item is available</strong> in the UI.</p>
+    <hr>
+    <h2>2. Create a New Menu Item Class</h2>
+    <p>Navigate to <code>MeerkatProject/MeerkatUI/src/analysismenubar/</code> and create a new Java file named <code>MenuItemNewAlgorithm.java</code>.</p>
+    <h3>Example Code:</h3>
+    <pre><code>package analysismenubar;
+
+import analysisscreen.AnalysisController;
+import communitymining.dialogwindow.NewAlgorithmDialog;
+import javafx.scene.control.MenuItem;
+import java.util.ArrayList;
+
+public class MenuItemNewAlgorithm extends MenuItemGeneric implements IMenuItem {
+
+    public MenuItemNewAlgorithm(String pstrMenuItemDisplay, String pstrMenuItemClass, String pstrMenuItemIconPath) {
+        super(pstrMenuItemDisplay, pstrMenuItemClass, pstrMenuItemIconPath);
+    }
+
+    @Override
+    public void Click(AnalysisController pController, MenuItem pMenuItem, Object pobjParameter) {
+        // Open the new algorithm configuration dialog
+        NewAlgorithmDialog.Display(pController, pobjParameter.toString(), new ArrayList&lt;&gt;());
+    }
+}
+</code></pre>
+    <hr>
+    <h2>3. Implement the Algorithm's Configuration Dialog</h2>
+    <p>Navigate to <code>MeerkatProject/MeerkatUI/src/communitymining/dialogwindow/</code> and create <code>NewAlgorithmDialog.java</code>.</p>
+    <h3>Example Code:</h3>
+    <pre><code>package communitymining.dialogwindow;
+
+import analysisscreen.AnalysisController;
+import config.LangConfig;
+import config.StatusMsgsConfig;
+import globalstate.MeerkatUI;
+import java.util.List;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+public class NewAlgorithmDialog {
+
+    public static void Display(AnalysisController pController, String pstrMappingID, List&lt;Integer&gt; VertexIDs) {
+        try {
+            Stage stgNewAlgorithm = new Stage();
+            stgNewAlgorithm.initModality(Modality.APPLICATION_MODAL);
+
+            // UI Components
+            GridPane gridUserControls = new GridPane();
+            Label lblParameter = new Label("Algorithm Parameter");
+            ComboBox&lt;String&gt; cmbParameter = new ComboBox&lt;&gt;();
+            cmbParameter.getItems().addAll("Option1", "Option2");
+            cmbParameter.setValue("Option1");
+            
+            Button btnOK = new Button(LangConfig.GENERAL_OK);
+            btnOK.setOnAction(e -> {
+                // Execute Algorithm and Update Canvas
+                String[] arrstrParameters = {"Parameter:" + cmbParameter.getValue()};
+                stgNewAlgorithm.close();
+                pController.updateStatusBar(true, StatusMsgsConfig.MINING_RESULTSCOMPUTING);
+                
+                MeerkatUI UIInstance = MeerkatUI.getUIInstance();
+                int intProjectID = UIInstance.getActiveProjectTab().getProjectID();
+                int intGraphID = UIInstance.getActiveProjectTab().getActiveGraphTab().getGraphID();
+                int intTimeFrameIndex = UIInstance.getActiveProjectTab().getActiveGraphTab().getTimeFrameIndex();
+                CommunityMiningAlgorithmDialog cmad = new CommunityMiningAlgorithmDialog();
+                cmad.runAlgorithm(intProjectID, intGraphID, intTimeFrameIndex, pstrMappingID, arrstrParameters, pController);
+            });
+
+            VBox vboxPanel = new VBox(gridUserControls, btnOK);
+            Scene scnNewAlgorithm = new Scene(vboxPanel);
+            stgNewAlgorithm.setScene(scnNewAlgorithm);
+            stgNewAlgorithm.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+</code></pre>
+    <hr>
+    <h2>4. Connecting the Algorithm to the Canvas and Displaying Clusters</h2>
+    <p>Inside <code>NewAlgorithmDialog.java</code>, the OK button action listener triggers the algorithm and updates the visualization:</p>
+    <pre><code>btnOK.setOnAction(e -> {
+    String[] arrstrParameters = {"Parameter:" + cmbParameter.getValue()};
+    
+    stgNewAlgorithm.close();
+    pController.updateStatusBar(true, StatusMsgsConfig.MINING_RESULTSCOMPUTING);
+    
+    MeerkatUI UIInstance = MeerkatUI.getUIInstance();
+    int intProjectID = UIInstance.getActiveProjectTab().getProjectID();
+    int intGraphID = UIInstance.getActiveProjectTab().getActiveGraphTab().getGraphID();
+    int intTimeFrameIndex = UIInstance.getActiveProjectTab().getActiveGraphTab().getTimeFrameIndex();
+    CommunityMiningAlgorithmDialog cmad = new CommunityMiningAlgorithmDialog();
+    cmad.runAlgorithm(intProjectID, intGraphID, intTimeFrameIndex, pstrMappingID, arrstrParameters, pController);
+});
+</code></pre>
+    <hr>
+    <h2>Final Outcome</h2>
+    <ul>
+      <li><strong>New Algorithm</strong> is fully integrated into MeerkatProject.</li>
+      <li>Users can configure and execute the algorithm via the menu.</li>
+      <li>The system updates the canvas to display detected clusters visually.</li>
+    </ul>
+    <p>Now you can easily add new community mining algorithms!</p>
+  </div>
+</body>
+</html>

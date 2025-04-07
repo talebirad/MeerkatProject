@@ -242,6 +242,7 @@ public class EdgeContextMenu {
         
         sliderLocal.valueProperty().addListener((ObservableValue<? extends Number> ov, Number numOldValue, Number numNewValue) -> {
             edgeLine.setStrokeWidth(sliderLocal.getValue());
+            System.out.println("Edge width change attempted to value "+sliderLocal.getValue());
         });        
         
         return sliderLocal;

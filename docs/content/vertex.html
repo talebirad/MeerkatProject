@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vertex Right-Click Option</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+  <div class="container">
+    <h1>How to Add an Option to the Vertex Right-Click Menu in MeerkatProject</h1>
+    <p>This guide explains how to <strong>add a new option</strong> to the <strong>right-click menu of a vertex</strong> in MeerkatProject, allowing users to trigger actions directly on selected vertices in the graph.</p>
+    <hr>
+    <h2>1. Add a Text Entry in <code>english.xml</code></h2>
+    <p>Define the text for your new option under the <code>NodeContextMenu</code> tag:</p>
+    <pre><code>&lt;NodeContextMenu&gt;
+    &lt;SelectCommunity&gt;Select Same-color Nodes&lt;/SelectCommunity&gt;
+&lt;/NodeContextMenu&gt;
+</code></pre>
+    <hr>
+    <h2>2. Define the Constant in <code>LangConfig.java</code></h2>
+    <p>Add a constant to reference the text entry:</p>
+    <pre><code>public static String NODECTX_COMMUNITY_TAG = "SelectCommunity";
+</code></pre>
+    <hr>
+    <h2>3. Update <code>LanguageXML.java</code> to Load the New Option</h2>
+    <p>Retrieve the translated text from <code>english.xml</code>:</p>
+    <pre><code>String selectCommunityText = eOptionsElement.getElementsByTagName(LangConfig.NODECTX_COMMUNITY_TAG).item(0).getTextContent();
+</code></pre>
+    <hr>
+    <h2>4. Add Necessary Fields in <code>VertexContextConfig.java</code></h2>
+    <p>Update the file to store and manage the new context menu option:</p>
+    <pre><code>public class VertexContextConfig {
+    
+    private static String VERTEX_SELECT_COMMUNITY;
+    
+    public static String getVertexSelectCommunityText() {
+        return VERTEX_SELECT_COMMUNITY;
+    }
+    
+    public static void Instantiate(String pstrVertexSelectCommunityText) {
+        VERTEX_SELECT_COMMUNITY = pstrVertexSelectCommunityText;
+    }
+}
+</code></pre>
+    <hr>
+    <h2>5. Locate the Vertex Menu Code</h2>
+    <p>The right-click menu for vertices is handled in the Graph UI components (typically in <code>VertexContextMenu.java</code>).</p>
+    <hr>
+    <h2>6. Add a New Menu Item</h2>
+    <p>Modify <code>VertexContextMenu.java</code> to add a new option:</p>
+    <pre><code>import javafx.scene.control.MenuItem;
+import config.VertexContextConfig;
+
+public class VertexContextMenu extends ContextMenu {
+    
+    public VertexContextMenu(Vertex vertex) {
+        super();
+        
+        // Existing menu items
+        MenuItem miViewDetails = new MenuItem("View Details");
+        MenuItem miDelete = new MenuItem("Delete Vertex");
+        
+        // New menu item
+        MenuItem miSelectCommunity = new MenuItem(VertexContextConfig.getVertexSelectCommunityText());
+        miSelectCommunity.setOnAction(event -> handleSelectCommunity(vertex));
+        
+        this.getItems().addAll(miViewDetails, miDelete, miSelectCommunity);
+    }
+    
+    private void handleSelectCommunity(Vertex vertex) {
+        System.out.println("Select Community option chosen for vertex: " + vertex.getId());
+        // Implement your feature here
+    }
+}
+</code></pre>
+    <hr>
+    <h2>7. Implement the Functionality</h2>
+    <p>Modify the <code>handleSelectCommunity</code> method to perform your custom action. For example, to select all nodes with the same color:</p>
+    <pre><code>private void handleSelectCommunity(Vertex vertex) {
+    Graph graph = vertex.getGraph();
+    String color = vertex.getColor();
+    
+    List&lt;Vertex&gt; sameColorNodes = graph.getVertices().stream()
+        .filter(v -> v.getColor().equals(color))
+        .collect(Collectors.toList());
+    
+    sameColorNodes.forEach(v -> v.setSelected(true));
+    System.out.println("Selected " + sameColorNodes.size() + " nodes with the same color.");
+}
+</code></pre>
+    <hr>
+    <h2>8. Testing the Feature</h2>
+    <ul>
+      <li>Run the application and right-click a vertex.</li>
+      <li>Verify that the new option appears in the context menu.</li>
+      <li>Click it and check if the nodes of the same color are selected.</li>
+    </ul>
+    <p>Now the vertex right-click menu is extended!</p>
+  </div>
+</body>
+</html>

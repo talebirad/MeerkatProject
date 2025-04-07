@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Algorithm Logic</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Where to Implement Your Community Mining Algorithm in MeerkatProject</h1>
+    <p>This guide explains where and how to <strong>implement your clustering algorithm</strong> in MeerkatProject once you have successfully added it to the <strong>Community Mining menu</strong>.</p>
+    <hr>
+    <h2>1. Locate the Algorithm Processing Class</h2>
+    <p>All community mining algorithms are managed by the <code>CommunityMiningAlgorithmDialog</code> class. This class receives the parameters and executes the selected algorithm.</p>
+    <h3>Path:</h3>
+    <pre>MeerkatProject/MeerkatLogic/src/algorithms/communitymining/</pre>
+    <p>Find or create a file inside this directory to implement your new algorithm.</p>
+    <h3>Example Implementation File:</h3>
+    <p>If your algorithm is called <strong>NewAlgorithm</strong>, create a file named:</p>
+    <pre>MeerkatProject/MeerkatLogic/src/algorithms/communitymining/NewAlgorithm.java</pre>
+    <hr>
+    <h2>2. Implement the Clustering Algorithm</h2>
+    <h3>Example: NewAlgorithm.java</h3>
+    <pre><code>package algorithm.graph.communitymining;
+
+import java.util.List;
+import datastructure.core.TimeFrame;
+import datastructure.core.graph.classinterface.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class NewAlgorithmMiner&lt;V extends IVertex, E extends IEdge&lt;V&gt;&gt;
+        extends Miner&lt;V, E&gt; {
+
+    public static final String STR_NAME = "NewAlgorithm";
+    public static boolean parameter1;
+    public static boolean parameter2;
+    public static ArrayList&lt;Integer&gt; vertexIDs = new ArrayList&lt;&gt;();
+    
+    public NewAlgorithmMiner(IDynamicGraph&lt;V, E&gt; pIGraph, TimeFrame tf, String[] parameters) {
+        super(pIGraph, tf);
+        parameter1 = parameters[0].contains("true");
+        parameter2 = parameters[1].contains("true");
+        
+        String vertexIDs_str = parameters[2].substring("VertexIDs:[".length(), parameters[2].length()-1);
+        String[] numberStrs = vertexIDs_str.isEmpty() ? new String[0] : vertexIDs_str.split(",");
+        
+        vertexIDs.clear();
+        for (int i = 0; i < numberStrs.length; i++) {
+            vertexIDs.add(Integer.parseInt(numberStrs[i].trim()));
+        }
+    }
+
+    @Override
+    public void run() {
+        System.out.println("********* New Algorithm Running *********");
+        mineGraph(parameter1, parameter2, vertexIDs);
+        if (!running) {
+            return;
+        }
+        updateDataStructure();
+        blnDone = true;
+    }
+    
+    public void mineGraph(boolean parameter1, boolean parameter2, ArrayList&lt;Integer&gt; vertexIDs) {
+        HashMap&lt;Integer, Integer&gt; results = new HashMap<>();
+        
+        for (int vertexId : vertexIDs) {
+            int communityId = vertexId % 3;
+            results.put(vertexId, communityId);
+        }
+        
+        if (!running) {
+            return;
+        }
+        results.keySet().forEach((vertexId) -> {
+            int communityId = results.get(vertexId);
+            if (hmpCommunities.containsKey(communityId + "")) {
+                hmpCommunities.get(communityId + "").add(vertexId);
+            } else {
+                List&lt;Integer&gt; listofVertices = new ArrayList<>();
+                listofVertices.add(vertexId);
+                hmpCommunities.put(communityId + "", listofVertices);
+            }
+        });
+    }
+    
+    @Override
+    public String toString() {
+        return STR_NAME;
+    }
+}
+</code></pre>
+    <hr>
+    <h2>What This Code Does:</h2>
+    <ol>
+      <li><strong>Receives a list of vertex IDs</strong> (nodes from the graph).</li>
+      <li><strong>Processes the parameters</strong> sent from the UI.</li>
+      <li><strong>Assigns each node to a cluster</strong> (using a modulus operation in this example).</li>
+      <li><strong>Returns a map</strong> where each node is assigned a cluster ID.</li>
+    </ol>
+    <hr>
+    <h2>3. Visualizing the Clustering Output</h2>
+    <p>After execution, the results are passed to the UI for visualization.</p>
+    <h3>Modify <code>CommunityMiningAlgorithmDialog.java</code> to Send Results to UI:</h3>
+    <pre><code>pController.updateGraphWithCommunities(clusteringResult);
+</code></pre>
+    <p>This ensures that the <strong>graph canvas updates</strong> with the detected clusters, each assigned a <strong>unique color</strong>.</p>
+    <hr>
+    <h2>Final Outcome</h2>
+    <ul>
+      <li>Your <strong>NewAlgorithm</strong> is now fully implemented and connected to MeerkatProject.</li>
+      <li>The algorithm <strong>processes the graph nodes</strong> and <strong>assigns clusters</strong>.</li>
+      <li>The UI <strong>updates the visualization</strong> to show the clustering results.</li>
+    </ul>
+    <p>Now your community mining algorithm is ready to use!</p>
+  </div>
+</body>
+</html>

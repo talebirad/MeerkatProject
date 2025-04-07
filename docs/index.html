@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meerkat Project Documentation and Guides</title>
+  <!-- Local Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- Local Font Awesome CSS -->
+  <link rel="stylesheet" href="css/fontawesome.min.css">
+  <!-- Local AOS CSS -->
+  <link rel="stylesheet" href="css/aos.css">
+  <!-- Local Google Fonts CSS (downloaded) -->
+  <link rel="stylesheet" href="css/google-fonts.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/custom.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      position: relative;
+    }
+    .section {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+      color: #fff;
+      padding: 100px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+    }
+    /* Card styles for sections */
+    .card-section {
+      margin-bottom: 30px;
+    }
+    .card-section .card-header {
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+    /* Static Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 220px;
+      background-color: #f8f9fa;
+      padding: 20px;
+      overflow-y: auto;
+      border-right: 1px solid #ddd;
+    }
+    .sidebar .sidebar-sticky {
+      position: relative;
+    }
+    .sidebar .nav-link {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .main-content {
+      margin-left: 240px; /* sidebar width + spacing */
+      padding: 20px;
+    }
+    .navbar-brand img {
+      height: 40px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#sidebarMenu" data-bs-offset="60" tabindex="0">
+  <!-- Static Sidebar Navigation -->
+  <nav id="sidebarMenu" class="sidebar">
+    <div class="sidebar-sticky text-center mb-4">
+      <img src="assets/images/meerkat-icon.png" alt="Meerkat Project Icon" class="img-fluid" style="max-height:80px;">
+      <h5 class="mt-2">Meerkat Project</h5>
+    </div>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link active" href="#backendDoc"><i class="fas fa-database"></i> Back-End Documentation</a></li>
+      <li class="nav-item"><a class="nav-link" href="#setup"><i class="fas fa-code"></i> IDE Setup</a></li>
+      <li class="nav-item"><a class="nav-link" href="#algorithmLogic"><i class="fas fa-cogs"></i> Algorithm Logic</a></li>
+      <li class="nav-item"><a class="nav-link" href="#miningUI"><i class="fas fa-chart-line"></i> Mining Algorithm UI</a></li>
+      <li class="nav-item"><a class="nav-link" href="#selectionModes"><i class="fas fa-layer-group"></i> Selection Modes</a></li>
+      <li class="nav-item"><a class="nav-link" href="#vertexOptions"><i class="fas fa-network-wired"></i> Vertex Options</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Hero Section (About MeerkatProject) -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <h1 data-aos="fade-up">About MeerkatProject</h1>
+        <p data-aos="fade-up" data-aos-delay="200">
+          MeerkatProject is a comprehensive platform for graph and text analysis. It provides robust back-end structures, 
+          innovative algorithms, and interactive UI components to empower your research in community mining and data visualization.
+        </p>
+        
+        <!-- Merged Text from the Screenshot with Updated Developer Info -->
+        <div data-aos="fade-up" data-aos-delay="300">
+          <p>
+            Meerkat is a social network analysis tool developed at AMII, Department of Computing Science, 
+            University of Alberta, under the leadership of Dr. Osmar Zaiane.
+          </p>
+          <p>
+            For more details email us at 
+            <a href="mailto:zaiane@ualberta.ca" style="color: #fff; text-decoration: underline;">zaiane@ualberta.ca</a>
+          </p>
+          <p>Version Release Date: 2025 April 7</p>
+          <p>Current Developer: Yashar Talebirad</p>
+          <p>
+            Past Team Members (alphabetical): Abhimanyu Panwar, Ali Yadollahi, Afra Abnar, Amin Travelsi, Eric Verbeek, Farzad Sangi, Justin Fagnan, Jiyang Chen, Matt Gallivan, Mansoureh Takaffoli, Mohammadmahdi Zafarmand, Reihaneh Rabbany, Sankalp Prabhakar, Shiva Zamani Gharaghooshi, Talat Iqbal Syed, Xiaoxiao Li.
+          </p>
+        </div>
+
+        <a href="#backendDoc" class="btn btn-light btn-lg" data-aos="fade-up" data-aos-delay="400">Explore Documentation</a>
+      </div>
+    </section>
+    
+    <!-- Back-End Documentation Section (Legacy Data) -->
+    <section id="backendDoc" class="section" data-aos="fade-up">
+      <div class="card card-section">
+        <div class="card-header">
+          <i class="fas fa-database"></i> Meerkat Application Back-End Documentation
+        </div>
+        <div class="card-body">
+          <h3>Introduction</h3>
+          <p>
+            This document introduces the design and use of the classes in the back-end division of the Meerkat application.
+            None of these classes interact directly with the GUI; they are accessed via an API.
+          </p>
+          <h3>Data Structure</h3>
+          <p>
+            Meerkat has a core data structure that encompasses both graphs and message threads. The graph structure is divided into interfaces and their implementations:
+          </p>
+          <ul>
+            <li><code>IGraph&lt;V,E&gt;</code> – Basic graph functionalities.</li>
+            <li><code>IGraphElement</code> – Common features for vertices and edges.</li>
+            <li><code>IVertex</code> – Specific to vertex functionalities.</li>
+            <li><code>IEdge&lt;V&gt;</code> – Specific to edge functionalities.</li>
+          </ul>
+          <p>
+            A <code>DynamicGraph</code> implementation manages extra information (e.g., timestamps) for dynamic data.
+          </p>
+          <h3>Text Data Structure</h3>
+          <ul>
+            <li><code>HNode</code> – Represents any message within a thread.</li>
+            <li><code>MsgNode&lt;A,L,C&gt;</code> – Contains author, location, content, and date information.</li>
+            <li><code>AnalyzedMsg</code> – Wraps a message with sentiment or emotion analysis results.</li>
+          </ul>
+          <h3>Common Classes</h3>
+          <ul>
+            <li><code>Attributable</code> – Manages attributes for any entity.</li>
+            <li><code>Identifiable</code> – Assigns a unique MeerkatId to instances.</li>
+            <li><code>Weighable</code> – Manages weights associated with entities.</li>
+            <li><code>Selectable</code> – Supports selecting elements (used for GUI interactions).</li>
+          </ul>
+          <h3>Algorithms</h3>
+          <ul>
+            <li><strong>Community Mining Algorithms:</strong> (e.g., <code>AttributeValueMiner</code>, <code>LocalCommunityMiner</code>).</li>
+            <li><strong>Graph Algorithms:</strong> Connected components, shortest paths (e.g., Dijkstra), centrality measures.</li>
+            <li><strong>Layout Algorithms:</strong> (e.g., <code>RandomLayout</code>, <code>CircleLayout</code>, <code>COMCLayout</code>).</li>
+            <li><strong>Text Analysis Algorithms:</strong> For text similarity and sentiment/emotion analysis.</li>
+            <li><strong>Utility Algorithms:</strong> Such as <code>Sort</code> and <code>PlainTextParser</code>.</li>
+          </ul>
+          <h3>Input/Output (I/O)</h3>
+          <ul>
+            <li><code>io.lgorithmutility</code> – Utility classes used by some algorithms.</li>
+            <li><code>io.graph</code> – Readers and writers for various graph formats.</li>
+            <li><code>io.text</code> – Readers and writers for message thread formats.</li>
+            <li><code>io.utility</code> – Application-specific I/O classes.</li>
+          </ul>
+          <h3>Project</h3>
+          <p>
+            A project in Meerkat encapsulates multiple graphs or message data sources, linking to various data files and managing outputs.
+          </p>
+          <h3>Main Application</h3>
+          <p>
+            The <code>main.MeerkatApplication</code> class initializes the system, manages active projects, and connects to server-side processing via <code>main.MeerkatServer</code>.
+          </p>
+          <h3>Configuration</h3>
+          <p>
+            Configuration settings are handled by classes such as <code>MeerkatClassConfig</code> and <code>MeerkatSystem</code>.
+          </p>
+          <h3>Tests</h3>
+          <p>
+            Tests for all components are located in the <code>test</code> package.
+          </p>
+        </div>
+      </div>
+    </section>
+        <!-- IDE Setup Section -->
+        <section id="setup" class="section" data-aos="fade-up">
+          <div class="card card-section">
+            <div class="card-header">
+              <i class="fas fa-code"></i> IDE Setup
+            </div>
+            <div class="card-body">
+              <p>
+                Follow these instructions to set up the base code in your IDE. For complete details, please refer to the setup guide.
+              </p>
+              <p><a href="content/setup.html" class="btn btn-secondary">View Setup Instructions</a></p>
+            </div>
+          </div>
+        </section>
+    <!-- Algorithm Logic Section -->
+    <section id="algorithmLogic" class="section" data-aos="fade-up">
+      <div class="card card-section">
+        <div class="card-header">
+          <i class="fas fa-cogs"></i> Algorithm Logic
+        </div>
+        <div class="card-body">
+          <p>
+            This guide explains where and how to implement your clustering algorithm in MeerkatProject. Locate the algorithm processing class in <code>MeerkatProject/MeerkatLogic/src/algorithms/communitymining/</code> and create a new file (e.g., <code>NewAlgorithm.java</code>). Your algorithm processes vertex IDs and assigns clusters (using a modulus operation in this example) before updating the UI.
+          </p>
+          <p><a href="content/algorithm.html" class="btn btn-secondary">View Full Algorithm Implementation Details</a></p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Mining Algorithm UI Section -->
+    <section id="miningUI" class="section" data-aos="fade-up">
+      <div class="card card-section">
+        <div class="card-header">
+          <i class="fas fa-chart-line"></i> Mining Algorithm UI
+        </div>
+        <div class="card-body">
+          <p>
+            This section details how to add a new community mining algorithm to the menu. Update <code>english.xml</code>, create a new menu item class, and implement the algorithm's configuration dialog. Once configured, the algorithm is executed and its clustering results are visualized on the canvas.
+          </p>
+          <p><a href="content/mining.html" class="btn btn-secondary">View Full Mining Algorithm UI Implementation</a></p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Selection Modes Section -->
+    <section id="selectionModes" class="section" data-aos="fade-up">
+      <div class="card card-section">
+        <div class="card-header">
+          <i class="fas fa-layer-group"></i> Selection Modes
+        </div>
+        <div class="card-body">
+          <p>
+            Add a new selection mode to MeerkatProject by updating <code>ModeConfig.java</code> with a new enum value and modifying UI components to support this mode. This allows users to select vertices in specialized ways.
+          </p>
+          <p><a href="content/modes.html" class="btn btn-secondary">View Full Selection Modes Implementation</a></p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Vertex Options Section -->
+    <section id="vertexOptions" class="section" data-aos="fade-up">
+      <div class="card card-section">
+        <div class="card-header">
+          <i class="fas fa-network-wired"></i> Vertex Options
+        </div>
+        <div class="card-body">
+          <p>
+            This section covers adding a new option to the vertex right-click menu. Customize the context menu (in <code>VertexContextMenu.java</code>) to add actions such as selecting all nodes with the same color. This improves direct interaction with the graph.
+          </p>
+          <p><a href="content/vertex.html" class="btn btn-secondary">View Full Vertex Options Implementation</a></p>
+        </div>
+      </div>
+    </section>
+    
+
+    
+  </main>
+  
+  <!-- Footer Section -->
+  <footer class="bg-light text-center py-3">
+    <div class="container">
+      <a href="content/copyright.html">Copyright Information</a>
+    </div>
+  </footer>
+  
+  <!-- Local Bootstrap 5 JS (includes Popper) -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <!-- Local AOS JS -->
+  <script src="js/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <!-- Local Custom JS -->
+  <script src="js/custom.js"></script>
+</body>
+</html>

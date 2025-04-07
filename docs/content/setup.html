@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Setup Tutorial</title>
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Setting Up MeerkatProject in Your IDE</h1>
+    <p>This tutorial guides you through the steps needed to configure your development environment for MeerkatProject.</p>
+    <hr>
+    <h2>1. Overview</h2>
+    <p>
+      MeerkatProject is a data analytic tool for analyzing networks of entities (both static and dynamic). The application is predominantly developed using Netbeans IDE on Linux and requires Java version 1.8.0 build 45 or later.
+    </p>
+    <hr>
+    <h2>2. Development Environment</h2>
+    <p>
+      The project is divided into three parts:
+    </p>
+    <ul>
+      <li><strong>MeerkatUI</strong></li>
+      <li><strong>MeerkatAPI</strong></li>
+      <li><strong>MeerkatLogic</strong></li>
+    </ul>
+    <p>
+      <strong>Recommendation:</strong> Use Netbeans IDE 8.2 for best compatibility.
+    </p>
+    <hr>
+    <h2>3. Build Order</h2>
+    <p>
+      To obtain a functioning version of MeerkatProject, compile the projects in the following order:
+    </p>
+    <ol>
+      <li>MeerkatLogic</li>
+      <li>MeerkatAPI</li>
+      <li>MeerkatUI</li>
+    </ol>
+    <p>
+      After building each project, add its generated jar file to the next project.
+    </p>
+    <hr>
+    <h2>4. Library Dependencies</h2>
+    <ol>
+      <li>
+        <strong>JUnit Library:</strong> For all projects, add JUnit 4.xx.
+        <p>
+          Right-click on the project → Properties → Libraries → Compile Test tab → Add Library → JUnit 4.xx. Repeat for the Run Test tab.
+        </p>
+        <p>
+          <img src="../assets/images/junit_setup.png" alt="JUnit Setup" class="img-fluid">
+        </p>
+      </li>
+      <li>
+        <strong>Hamcrest Library:</strong> For the MeerkatUI project, add the Hamcrest library.
+        <p>
+          Right-click on the project → Properties → Libraries → Compile Test tab → Add Library → Hamcrest.
+        </p>
+      </li>
+      <li>
+        <strong>Jar Dependencies:</strong> Instead of using project dependencies, remove them and add the jar files from each project’s <code>dist</code> folder. Compile MeerkatLogic first, then MeerkatAPI, and add the corresponding jars accordingly.
+        <p>
+          <img src="../assets/images/jar_setup.png" alt="Jar Setup" class="img-fluid">
+        </p>
+      </li>
+    </ol>
+    <hr>
+    <h2>Final Outcome</h2>
+    <p>
+      Following these steps will set up your IDE for MeerkatProject, and you'll have a fully functioning environment to start development.
+    </p>
+  </div>
+</body>
+</html>
